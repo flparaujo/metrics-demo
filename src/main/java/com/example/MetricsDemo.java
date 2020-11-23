@@ -19,14 +19,14 @@ public class MetricsDemo implements MeterBinder {
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
-        Gauge.builder("splunk_license_quota_used", this, value -> LicenseUsedPercentage())
+        Gauge.builder("splunk_license_quota_used", this, value -> licenseUsedPercentage())
                 .description("Today's Percentage of Daily License Quota Used")
                 .tags(Tags.of(Tag.of("date", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))))
                 .baseUnit("percentage")
                 .register(meterRegistry);
     }
 
-    public Double LicenseUsedPercentage() {
+    public Double licenseUsedPercentage() {
         String res = "";
 
         connectToSplunk();
