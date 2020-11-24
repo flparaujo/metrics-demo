@@ -26,7 +26,7 @@ public class MetricsDemo implements MeterBinder {
                 .register(meterRegistry);
     }
 
-    public Double licenseUsedPercentage() {
+    private Double licenseUsedPercentage() {
         String res = "";
 
         connectToSplunk();
