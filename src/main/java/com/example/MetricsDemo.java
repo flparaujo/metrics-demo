@@ -3,6 +3,7 @@ package com.example;
 import com.splunk.*;
 import io.micrometer.core.instrument.*;
 import io.micrometer.core.instrument.binder.MeterBinder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -16,6 +17,9 @@ import java.util.Iterator;
 public class MetricsDemo implements MeterBinder {
 
     private Service service;
+
+    @Value("${AUTH_TOKEN}")
+    private String authToken;
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
@@ -81,6 +85,6 @@ public class MetricsDemo implements MeterBinder {
         service = new Service("localhost", 8089);
 
         //log in with an existing token
-        service.setToken("Splunk eyJraWQiOiJzcGx1bmsuc2VjcmV0IiwiYWxnIjoiSFM1MTIiLCJ2ZXIiOiJ2MiIsInR0eXAiOiJzdGF0aWMifQ.eyJpc3MiOiJhZG1pbiBmcm9tIERFU0tUT1AtR0RFSk9ERyIsInN1YiI6ImFkbWluIiwiYXVkIjoiYXV0aGVudGljYXRlIGZyb20gamF2YSBhcHBsaWNhdGlvbiIsImlkcCI6IlNwbHVuayIsImp0aSI6IjUzMWZlMjVjMzBiZGZmODdjMTY4MmQ4OTlmMDMxMGI5NzIzNGY0NGE2MDkzZWU3MGMxOTU3YTg1ZjU2NzQ3ZGIiLCJpYXQiOjE2MDU3NDc5ODEsImV4cCI6MTYzNzI4Mzk4MSwibmJyIjoxNjA1NzQ3OTgxfQ.IPH5hw9hQSmSlwh4sBBdMVBVrP7MCRsW_86DMIFJvEVxEt_1C_bgTv3MeRBF8ofIIM6s4rw3HgjdiKv7SWdeUQ");
+        service.setToken("Splunk ".concat(authToken));
     }
 }
